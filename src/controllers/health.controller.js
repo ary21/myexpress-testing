@@ -1,5 +1,5 @@
-exports.healthCheckSync = () => ('OK');
+export function healthCheckSync() { return ('OK'); }
 
-exports.healthCheckAsync = () => {
+export function healthCheckAsync() {
   return Promise.resolve('OK');
 }

@@ -1,12 +1,12 @@
-const express = require('express');
-const cors = require('cors');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-require('dotenv').config();
+import express from 'express';
+import dotenv  from "dotenv";
+import cors from 'cors';
+import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
 
-const {
-	healthCheckRoutes
-} = require('./routes');
+dotenv.config();
+
+import healthCheckRoutes from './routes/health.route.js';
 
 const app = express();
 
@@ -18,20 +18,24 @@ app.use(cors());
 
 app.get('/', (req, res) => {
 	res.json({
-		status: true
+		status: true,
+		msg: 'Hello World'
 	})
 });
 
 app.use('/health', healthCheckRoutes);
 
 // Connect to mongoDB
-let mongoDB = process.env.MONGODB_URL;
-console.log('Connecting to mongo >', mongoDB);
-mongoose.connect(mongoDB, {
+let urlMongoDB = process.env.MONGODB_URL;
+if (!urlMongoDB || urlMongoDB == '') {
+	throw new Error('mongoDB url connection not found!!');
+}
+
+console.log('Connecting to mongo >>', urlMongoDB);
+mongoose.connect(urlMongoDB, {
 	useNewUrlParser: true
 });
 mongoose.Promise = global.Promise;
-
 mongoose.connection.on('error', console.error.bind(console, '❌❌❌ MongoDB Connection Error ❌❌❌'));
 
-module.exports = app;
+export default app;

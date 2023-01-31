@@ -1,10 +1,5 @@
-const chai = require('chai');
-const expect = chai.expect;
-
-const {
-  healthCheckSync,
-  healthCheckAsync
-} = require('../controllers/health.controller');
+import { expect } from 'chai';
+import { healthCheckSync, healthCheckAsync } from '../controllers/health.controller.js';
 
 describe('Test /health', () => {
   /**
