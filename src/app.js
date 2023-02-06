@@ -7,6 +7,7 @@ import bodyParser from 'body-parser';
 dotenv.config();
 
 import healthCheckRoutes from './routes/health.route.js';
+import itemsRoutes from './routes/item.route.js';
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/health', healthCheckRoutes);
+app.use('/items', itemsRoutes);
 
 // Connect to mongoDB
 let urlMongoDB = process.env.MONGODB_URL;
